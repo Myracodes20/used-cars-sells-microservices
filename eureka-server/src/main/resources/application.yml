@@ -5,7 +5,10 @@ spring:
   application:
     name: eureka-server
 
+# This tells Eureka it's a standalone server
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+  server:
+    wait-time-in-ms-when-sync-empty: 0

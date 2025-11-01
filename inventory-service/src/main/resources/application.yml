@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/inventory_db?createDatabaseIfNotExist=true
+    username: root
+    password: ''
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Automatically creates/updates tables
+    show-sql: true # Good for debugging
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# Eureka Client Config
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# Monitoring Config
+management:
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans # Tells service where Zipkin is
+  tracing:
+    sampling:
+      probability: 1.0 # Traces 100% of requests. Good for dev, not for prod.
+
+# This service will run on a random port to avoid conflicts
+server:
+  port: 0
+
+---
+# This is the 'standalone' profile (for you to work alone)
+spring:
+  config:
+    activate:
+      on-profile: standalone # This block is ONLY active when you run with 'standalone'
+
+  # Use H2 In-Memory Database
+  datasource:
+    url: jdbc:h2:mem:inventory_db # Creates a temporary in-memory DB
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Creates tables on start, drops them on stop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true # Enables the H2 database browser at /h2-console
+
+# Disable Eureka and Zipkin
+eureka:
+  client:
+    enabled: false
+management:
+  zipkin:
+    tracing:
+      endpoint:
+  tracing:
+    enabled: false
+
+# Run on a fixed, predictable port
+server:
+  port: 8080
