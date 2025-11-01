@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/_layout :: layout(
+    title='My Bookings',
+    content=~{::content}
+)}">
+<body>
+    <div th:fragment="content">
+        <div class="container my-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>My Service Bookings</h2>
+                <a th:href="@{/service/bookings}" class="btn btn-primary">+ New Booking</a>
+            </div>
+            
+            <!-- Bookings List -->
+            <div th:if="${!#lists.isEmpty(bookings)}">
+                <div class="card mb-3" th:each="booking : ${bookings}">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>Service Type: <span th:text="${booking.serviceType}">OIL_CHANGE</span></h5>
+                                <p class="mb-1">
+                                    <strong>Car ID:</strong> <span th:text="${booking.carId}">1</span>
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Date:</strong> 
+                                    <span th:text="${#temporals.format(booking.bookingDate, 'dd-MM-yyyy')}">01-01-2025</span>
+                                    at 
+                                    <span th:text="${booking.bookingTime}">10:00</span>
+                                </p>
+                                <p class="mb-1" th:if="${booking.notes}">
+                                    <strong>Notes:</strong> <span th:text="${booking.notes}">Notes here</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <span class="badge bg-info mb-2" th:text="${booking.status}">PENDING</span>
+                                <br>
+                                <a th:href="@{/service/bookings/{id}(id=${booking.id})}" class="btn btn-sm btn-outline-primary">View Details</a>
+                                <form th:action="@{/service/bookings/delete/{id}(id=${booking.id})}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                            onclick="return confirm('Cancel this booking?')">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div th:if="${#lists.isEmpty(bookings)}" class="alert alert-info">
+                You don't have any service bookings yet. <a th:href="@{/service/bookings}">Book a service now</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>           ✅

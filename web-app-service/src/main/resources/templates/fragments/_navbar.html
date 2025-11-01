@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Used Cars Hub</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/cars}">Browse Cars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/service/bookings}">Service Booking</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <!-- Logged In User -->
+                    <li class="nav-item dropdown" th:if="${session.user != null}">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <span th:text="${session.user.name}">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{/user/profile}">Profile</a></li>
+                            <li><a class="dropdown-item" th:href="@{/service/my-bookings}">My Bookings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/user/logout}">Logout</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Not Logged In -->
+                    <li class="nav-item" th:if="${session.user == null}">
+                        <a class="nav-link" th:href="@{/user/login}">Login</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.user == null}">
+                        <a class="nav-link" th:href="@{/user/register}">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

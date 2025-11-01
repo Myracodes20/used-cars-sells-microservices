@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/_layout :: layout(
+    title='My Profile',
+    content=~{::content}
+)}">
+<body>
+    <div th:fragment="content">
+        <div class="container my-4">
+            <h2>My Profile</h2>
+            
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5>Profile Information</h5>
+                    <table class="table mt-3">
+                        <tr>
+                            <th width="200">Name:</th>
+                            <td th:text="${user.name}">John Doe</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td th:text="${user.email}">john@email.com</td>
+                        </tr>
+                        <tr>
+                            <th>Phone:</th>
+                            <td th:text="${user.phone}">+1234567890</td>
+                        </tr>
+                        <tr>
+                            <th>Role:</th>
+                            <td><span class="badge bg-primary" th:text="${user.role}">USER</span></td>
+                        </tr>
+                    </table>
+                    
+                    <a th:href="@{/user/edit}" class="btn btn-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

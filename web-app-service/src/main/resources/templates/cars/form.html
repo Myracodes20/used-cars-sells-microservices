@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/_layout :: layout(
+    title='Add/Edit Car',
+    content=~{::content}
+)}">
+<body>
+    <div th:fragment="content">
+        <div class="container my-4">
+            <h2 th:text="${car.id != null} ? 'Edit Car' : 'Add New Car'">Add Car</h2>
+            
+            <form th:action="@{/cars/save}" th:object="${car}" method="post" class="mt-4">
+                <input type="hidden" th:field="*{id}">
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Brand *</label>
+                        <input type="text" th:field="*{brand}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Model *</label>
+                        <input type="text" th:field="*{model}" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Year *</label>
+                        <input type="number" th:field="*{year}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Price *</label>
+                        <input type="number" step="0.01" th:field="*{price}" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mileage (km) *</label>
+                        <input type="number" th:field="*{mileage}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Color</label>
+                        <input type="text" th:field="*{color}" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Transmission</label>
+                        <select th:field="*{transmission}" class="form-control">
+                            <option value="MANUAL">Manual</option>
+                            <option value="AUTOMATIC">Automatic</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+                        <select th:field="*{status}" class="form-control">
+                            <option value="AVAILABLE">Available</option>
+                            <option value="SOLD">Sold</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea th:field="*{description}" class="form-control" rows="4"></textarea>
+                </div>
+                
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a th:href="@{/cars}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

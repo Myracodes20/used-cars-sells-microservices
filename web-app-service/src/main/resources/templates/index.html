@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/_layout :: layout(
+    title='Home - Used Cars Hub',
+    content=~{::content}
+)}">
+<body>
+    <div th:fragment="content">
+        <div class="bg-primary text-white py-5">
+            <div class="container text-center">
+                <h1 class="display-4">Welcome to Used Cars Hub</h1>
+                <p class="lead">Find your perfect used car or book a service appointment</p>
+                <a th:href="@{/cars}" class="btn btn-light btn-lg me-2">Browse Cars</a>
+                <a th:href="@{/service/bookings}" class="btn btn-outline-light btn-lg">Book Service</a>
+            </div>
+        </div>
+        
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3>🚗 Quality Cars</h3>
+                            <p>Browse our selection of verified used cars</p>
+                            <a th:href="@{/cars}" class="btn btn-primary">View Inventory</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3>🔧 Service Booking</h3>
+                            <p>Schedule maintenance and repair services</p>
+                            <a th:href="@{/service/bookings}" class="btn btn-primary">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3>👤 User Account</h3>
+                            <p>Manage your profile and bookings</p>
+                            <a th:href="@{/user/profile}" class="btn btn-primary">My Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
